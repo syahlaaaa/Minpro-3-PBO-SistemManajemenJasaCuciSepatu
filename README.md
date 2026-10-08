@@ -169,6 +169,7 @@ Struk berisi:
 - Diskon
 - Total Bayar
 - Status
+- 
 3.12 Validasi Input
 Program menerapkan validasi untuk mengurangi kesalahan input pengguna.
 Validasi yang diterapkan meliputi:
@@ -201,6 +202,7 @@ Struktur project:
 <img width="403" height="386" alt="image" src="https://github.com/user-attachments/assets/d655946d-7e68-4863-8d82-776339ace21c" />
 
 # 5. Penjelasan Struktur MVC
+
 5.1 Model
 Package Model berisi class yang merepresentasikan objek dan data yang digunakan dalam program.
 Class pada Model:
@@ -237,6 +239,7 @@ Digunakan untuk:
 - Menampilkan data transaksi.
 - Memproses pilihan menu.
 - Melakukan validasi input.
+
 5.3 Controller
 Package Controller berisi class yang mengatur pengelolaan data transaksi.
 TransaksiController.java
