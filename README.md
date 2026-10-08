@@ -218,6 +218,7 @@ Digunakan untuk menyimpan data pelanggan seperti:
 - Nomor Telepon
 - Alamat
 - Status Member
+
 Sepatu.java
 
 Merupakan abstract class yang menjadi superclass untuk objek sepatu.
