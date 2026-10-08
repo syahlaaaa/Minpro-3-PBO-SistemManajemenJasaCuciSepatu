@@ -121,6 +121,7 @@ Kemungkinan promo yang diperoleh:
 - Tidak mendapatkan promo
 Jika pengguna mendapatkan promo, program akan menampilkan informasi promo, jumlah potongan harga, dan total harga setelah diskon.
 Perhitungan diskon dilakukan secara otomatis oleh sistem.
+
 3.8 Perubahan Status Transaksi
 Status transaksi memiliki alur:
 Menunggu-Diproses-Selesai-Diambil
