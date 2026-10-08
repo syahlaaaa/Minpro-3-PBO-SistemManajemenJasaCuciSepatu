@@ -11,5 +11,5 @@
         <maven.compiler.target>21</maven.compiler.target>
         <exec.mainClass>com.mycompany.minpro1jasacucisepatu.Minpro1JasaCuciSepatu</exec.mainClass>
     </properties>
-    <name>Minpro2JasaCuciSepatu</name>
+    <name>Minpro3JasaCuciSepatu</name>
 </project>

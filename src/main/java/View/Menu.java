@@ -13,27 +13,36 @@ import java.util.Scanner;
 
 public class Menu {
 
-    private Scanner input;
-    private TransaksiController controller;
+    private final TransaksiController controller;
+    private final Scanner input;
+    private final String role;
 
-    public Menu(TransaksiController controller) {
-
+    public Menu(TransaksiController controller, String role, Scanner input) {
         this.controller = controller;
-        input = new Scanner(System.in);
+        this.role = role;
+        this.input = input;
     }
 
     public void tampilkanMenu() {
 
-        loading("Menyiapkan sistem");
+        if (role.equalsIgnoreCase("Admin")) {
+            tampilkanMenuAdmin();
+        } else {
+            tampilkanMenuKasir();
+        }
+    }
+
+// menu adminnnnnnn
+    private void tampilkanMenuAdmin() {
 
         int pilihan;
 
         do {
-
-            System.out.println();
-            System.out.println("==========================================");
-            System.out.println("       SISTEM MANAJEMEN JASA CUCI SEPATU");
-            System.out.println("==========================================");
+            System.out.println("\n========================================");
+            System.out.println("     SISTEM MANAJEMEN JASA CUCI SEPATU");
+            System.out.println("========================================");
+            System.out.println("Login sebagai : ADMIN");
+            System.out.println("========================================");
             System.out.println("1. Tambah Data");
             System.out.println("2. Lihat Data");
             System.out.println("3. Ubah Status Transaksi");
@@ -41,9 +50,9 @@ public class Menu {
             System.out.println("5. Cari Data");
             System.out.println("6. Cetak Struk");
             System.out.println("7. Keluar");
-            System.out.println("==========================================");
+            System.out.println("========================================");
 
-            pilihan = inputInt("Pilih menu: ");
+            pilihan = inputPilihan(1, 7, "Pilih menu: ");
 
             switch (pilihan) {
 
@@ -56,7 +65,7 @@ public class Menu {
                     break;
 
                 case 3:
-                    ubahData();
+                    ubahStatus();
                     break;
 
                 case 4:
@@ -72,202 +81,215 @@ public class Menu {
                     break;
 
                 case 7:
-                    loading("Menutup program");
                     System.out.println(
-                            "Terima kasih telah menggunakan sistem."
-                    );
+                            "Terima kasih telah menggunakan program.");
                     break;
-
-                default:
-                    System.out.println(
-                            "Pilihan menu hanya 1 sampai 7."
-                    );
             }
 
         } while (pilihan != 7);
     }
+// menu kasirrr
+
+    private void tampilkanMenuKasir() {
+
+        int pilihan;
+
+        do {
+            System.out.println("\n========================================");
+            System.out.println("     SISTEM MANAJEMEN JASA CUCI SEPATU");
+            System.out.println("========================================");
+            System.out.println("Login sebagai : KASIR");
+            System.out.println("========================================");
+            System.out.println("1. Lihat Data");
+            System.out.println("2. Cari Data");
+            System.out.println("3. Cetak Struk");
+            System.out.println("4. Keluar");
+            System.out.println("========================================");
+
+            pilihan = inputPilihan(1, 4, "Pilih menu: ");
+
+            switch (pilihan) {
+
+                case 1:
+                    lihatData();
+                    break;
+
+                case 2:
+                    cariData();
+                    break;
+
+                case 3:
+                    cetakStruk();
+                    break;
+
+                case 4:
+                    System.out.println(
+                            "Terima kasih telah menggunakan program.");
+                    break;
+            }
+
+        } while (pilihan != 4);
+    }
+
 
     private void tambahData() {
 
-        System.out.println();
-        System.out.println("========== TAMBAH DATA ==========");
+        System.out.println("\n========== TAMBAH DATA ==========");
 
-        String idTransaksi =
-                controller.generateIdTransaksi();
+        String idPelanggan = controller.generateIdPelanggan();
+        String idSepatu = controller.generateIdSepatu();
+        String idTransaksi = controller.generateIdTransaksi();
 
-        String idPelanggan =
-                controller.generateIdPelanggan();
+        System.out.println("ID Pelanggan : " + idPelanggan);
+        System.out.println("ID Sepatu    : " + idSepatu);
+        System.out.println("ID Transaksi : " + idTransaksi);
 
-        String idSepatu =
-                controller.generateIdSepatu();
+        String nama = inputNama("Nama Pelanggan: ");
+        String telepon = inputTelepon("No. Telepon: ");
+        String alamat = inputAlamat("Alamat: ");
 
-        System.out.println(
-                "ID Transaksi : " + idTransaksi
-        );
-
-        System.out.println(
-                "ID Pelanggan : " + idPelanggan
-        );
-
-        String nama =
-                inputNama("Nama Pelanggan: ");
-
-        String noTelepon =
-                inputTelepon("No. Telepon: ");
-
-        String alamat =
-                inputPanjang(
-                        "Alamat: ",
-                        5,
-                        100
-                );
-
-        Pelanggan pelanggan =
-                new Pelanggan(
-                        idPelanggan,
-                        nama,
-                        noTelepon,
-                        alamat
-                );
-        System.out.println(
-                "ID Sepatu : " + idSepatu
-        );
-
-        String merek =
-                inputPanjang(
-                        "Merek Sepatu: ",
-                        2,
-                        30
-                );
-        System.out.println("Jenis Sepatu:");
+        System.out.println("\nJenis Sepatu");
         System.out.println("1. Sneakers");
         System.out.println("2. Boots");
 
-        int pilihanJenis;
-
-        do {
-
-            pilihanJenis =
-                    inputInt("Pilih jenis sepatu: ");
-
-            if (pilihanJenis != 1
-                    && pilihanJenis != 2) {
-
-                System.out.println(
-                        "Pilihan hanya 1 atau 2."
-                );
-            }
-
-        } while (
-                pilihanJenis != 1
-                && pilihanJenis != 2
+        int jenis = inputPilihan(
+                1,
+                2,
+                "Pilih jenis sepatu: "
         );
 
-        String warna =
-                inputPanjang(
-                        "Warna Sepatu: ",
-                        3,
-                        20
-                );
+        String merek = inputTeks(
+                "Merek Sepatu: ",
+                "Merek"
+        );
+
+        String warna = inputTeks(
+                "Warna Sepatu: ",
+                "Warna"
+        );
+
+        System.out.println("\nJenis Layanan");
+        System.out.println("1. Fast Clean - Rp20000");
+        System.out.println("2. Deep Clean - Rp35000");
+
+        int layanan = inputPilihan(
+                1,
+                2,
+                "Pilih layanan: "
+        );
+
+        String namaLayanan =
+                layanan == 1
+                ? "Fast Clean"
+                : "Deep Clean";
+
+        int harga =
+                layanan == 1
+                ? 20000
+                : 35000;
+
+        String tanggal = LocalDate.now().format(
+                DateTimeFormatter.ofPattern("dd-MM-yyyy")
+        );
+
+        Pelanggan pelanggan = new Pelanggan(
+                idPelanggan,
+                nama,
+                telepon,
+                alamat,
+                false
+        );
 
         Sepatu sepatu;
 
-        if (pilihanJenis == 1) {
+        if (jenis == 1) {
 
-            sepatu =
-                    new SepatuSneakers(
-                            idSepatu,
-                            merek,
-                            warna
-                    );
-
-        } else {
-
-            sepatu =
-                    new SepatuBoot(
-                            idSepatu,
-                            merek,
-                            warna
-                    );
-        }
-        System.out.println("Jenis Layanan:");
-        System.out.println("1. Fast Clean  - Rp20.000");
-        System.out.println("2. Deep Clean  - Rp35.000");
-        System.out.println("3. Special Care - Rp50.000");
-
-        int pilihanLayanan;
-
-        do {
-
-            pilihanLayanan =
-                    inputInt("Pilih layanan: ");
-
-            if (pilihanLayanan < 1
-                    || pilihanLayanan > 3) {
-
-                System.out.println(
-                        "Pilihan layanan hanya 1 sampai 3."
-                );
-            }
-
-        } while (
-                pilihanLayanan < 1
-                || pilihanLayanan > 3
-        );
-
-        String jenisLayanan;
-        int harga;
-
-        if (pilihanLayanan == 1) {
-
-            jenisLayanan = "Fast Clean";
-            harga = 20000;
-
-        } else if (pilihanLayanan == 2) {
-
-            jenisLayanan = "Deep Clean";
-            harga = 35000;
+            sepatu = new SepatuSneakers(
+                    idSepatu,
+                    merek,
+                    warna
+            );
 
         } else {
 
-            jenisLayanan = "Special Care";
-            harga = 50000;
+            sepatu = new SepatuBoot(
+                    idSepatu,
+                    merek,
+                    warna
+            );
         }
 
-        LocalDate tanggalSekarang =
-                LocalDate.now();
-
-        DateTimeFormatter formatTanggal =
-                DateTimeFormatter.ofPattern(
-                        "dd-MM-yyyy"
-                );
-
-        String tanggal =
-                tanggalSekarang.format(formatTanggal);
-
-        System.out.println(
-                "Tanggal Transaksi : " + tanggal
+        Transaksi transaksi = new Transaksi(
+                idTransaksi,
+                pelanggan,
+                sepatu,
+                namaLayanan,
+                harga,
+                tanggal,
+                "Menunggu"
         );
-
-        Transaksi transaksi =
-                new Transaksi(
-                        idTransaksi,
-                        pelanggan,
-                        sepatu,
-                        jenisLayanan,
-                        harga,
-                        tanggal,
-                        "Menunggu"
-                );
-
-        loading("Menyimpan data");
 
         if (controller.tambah(transaksi)) {
 
-            System.out.println();
-            System.out.println(
-                    "Data berhasil ditambahkan!"
-            );
+            System.out.println("\nData berhasil ditambahkan!");
+
+            if (transaksi.getPersentaseDiskon() > 0) {
+
+                System.out.println("\n========================================");
+                System.out.println("             SURPRISE PROMO!");
+                System.out.println("========================================");
+
+                if (transaksi.getPersentaseDiskon() == 10) {
+
+                    System.out.println("Wow, kamu beruntung!");
+                    System.out.println(
+                            "Kamu mendapatkan diskon 10%!"
+                    );
+
+                } else {
+
+                    System.out.println(
+                            "Selamat! Kamu mendapatkan diskon 5%!"
+                    );
+                }
+
+                System.out.println("----------------------------------------");
+                System.out.println(
+                        "Harga Awal  : Rp"
+                        + transaksi.getHarga()
+                );
+
+                System.out.println(
+                        "Promo       : "
+                        + transaksi.getPromo()
+                );
+
+                System.out.println(
+                        "Potongan    : Rp"
+                        + (int) transaksi.getDiskon()
+                );
+
+                System.out.println(
+                        "Total Bayar : Rp"
+                        + (int) transaksi.getTotalHarga()
+                );
+
+                System.out.println("========================================");
+
+            } else {
+
+                System.out.println(
+                        "\nKali ini belum mendapatkan promo."
+                );
+
+                System.out.println(
+                        "Total Bayar : Rp"
+                        + (int) transaksi.getTotalHarga()
+                );
+            }
+
+            System.out.println("\nDetail Transaksi:");
+            transaksi.tampilkanData(true);
 
         } else {
 
@@ -278,8 +300,9 @@ public class Menu {
     }
 
     private void lihatData() {
+
         System.out.println(
-                "========== DATA TRANSAKSI =========="
+                "\n========== DATA TRANSAKSI =========="
         );
 
         if (controller.getDaftarTransaksi().isEmpty()) {
@@ -288,187 +311,207 @@ public class Menu {
                     "Belum ada data transaksi."
             );
 
-        } else {
-
-            for (Transaksi transaksi
-                    : controller.getDaftarTransaksi()) {
-
-                transaksi.tampilkanData();
-
-                System.out.println(
-                        "------------------------------------"
-                );
-            }
+            return;
         }
-    }
-    private void ubahData() {
-        System.out.println(
-                "========== UBAH STATUS TRANSAKSI =========="
-        );
 
-        String id =
-                inputString("Masukkan ID Transaksi: ");
-
-        Transaksi transaksi =
-                controller.cari(id);
-
-        if (transaksi == null) {
+        for (Transaksi transaksi
+                : controller.getDaftarTransaksi()) {
 
             System.out.println(
-                    "Data tidak ditemukan."
+                    "\n----------------------------------------"
+            );
+
+            transaksi.tampilkanData();
+        }
+    }
+
+    private Transaksi pilihTransaksi() {
+
+        if (controller.getDaftarTransaksi().isEmpty()) {
+
+            System.out.println(
+                    "Belum ada data transaksi."
+            );
+
+            return null;
+        }
+
+        System.out.println(
+                "\n========== PILIH TRANSAKSI =========="
+        );
+
+        for (int i = 0;
+                i < controller.getDaftarTransaksi().size();
+                i++) {
+
+            Transaksi t =
+                    controller.getDaftarTransaksi().get(i);
+
+            System.out.println(
+                    (i + 1)
+                    + ". "
+                    + t.getIdTransaksi()
+                    + " | "
+                    + t.getPelanggan().getNama()
+                    + " | "
+                    + t.getSepatu().getMerek()
+                    + " | "
+                    + t.getStatus()
+            );
+        }
+
+        System.out.println("0. Kembali");
+
+        int pilihan = inputPilihan(
+                0,
+                controller.getDaftarTransaksi().size(),
+                "Pilih transaksi: "
+        );
+
+        if (pilihan == 0) {
+            return null;
+        }
+
+        return controller.getDaftarTransaksi()
+                .get(pilihan - 1);
+    }
+
+
+    private void ubahStatus() {
+
+        System.out.println(
+                "\n========== UBAH STATUS =========="
+        );
+
+        Transaksi t = pilihTransaksi();
+
+        if (t == null) {
+            return;
+        }
+
+        String status = t.getStatus();
+
+        if (status.equalsIgnoreCase("Diambil")
+                || status.equalsIgnoreCase("Batal")) {
+
+            System.out.println(
+                    "Status transaksi sudah final "
+                    + "dan tidak dapat diubah."
             );
 
             return;
         }
 
-        if (transaksi.getStatus()
-                .equalsIgnoreCase("Diambil")) {
+        System.out.println(
+                "Status saat ini: " + status
+        );
+
+        if (status.equalsIgnoreCase("Menunggu")) {
+
+            System.out.println("1. Diproses");
+            System.out.println("2. Batal");
+
+        } else if (status.equalsIgnoreCase("Diproses")) {
+
+            System.out.println("1. Selesai");
+            System.out.println("2. Batal");
+
+        } else if (status.equalsIgnoreCase("Selesai")) {
+
+            System.out.println("1. Diambil");
+            System.out.println("2. Batal");
+
+        } else {
 
             System.out.println(
-                    "Transaksi sudah diambil pelanggan."
-            );
-
-            System.out.println(
-                    "Status tidak dapat diubah lagi."
+                    "Status tidak dikenali."
             );
 
             return;
         }
 
-        System.out.println("Data Transaksi:");
-        transaksi.tampilkanData();
-
-        System.out.println();
-        System.out.println(
-                "Status Saat Ini : "
-                + transaksi.getStatus()
-        );
-        System.out.println(
-                "Ubah Status Menjadi:"
+        int pilihan = inputPilihan(
+                1,
+                2,
+                "Pilih status: "
         );
 
-        System.out.println("1. Menunggu");
-        System.out.println("2. Diproses");
-        System.out.println("3. Selesai");
-        System.out.println("4. Diambil");
+        if (pilihan == 2) {
 
-        int pilihanStatus;
+            t.setStatus("Batal");
 
-        do {
+            System.out.println(
+                    "Transaksi berhasil dibatalkan."
+            );
 
-            pilihanStatus =
-                    inputInt("Pilih status baru: ");
+        } else if (status.equalsIgnoreCase("Menunggu")) {
 
-            if (pilihanStatus < 1
-                    || pilihanStatus > 4) {
+            t.setStatus("Diproses");
 
-                System.out.println(
-                        "Pilihan status hanya 1 sampai 4."
-                );
-            }
+            System.out.println(
+                    "Status berhasil diubah menjadi Diproses."
+            );
 
-        } while (
-                pilihanStatus < 1
-                || pilihanStatus > 4
-        );
+        } else if (status.equalsIgnoreCase("Diproses")) {
 
-        if (pilihanStatus == 1) {
+            t.setStatus("Selesai");
 
-            transaksi.setStatus("Menunggu");
-
-        } else if (pilihanStatus == 2) {
-
-            transaksi.setStatus("Diproses");
-
-        } else if (pilihanStatus == 3) {
-
-            transaksi.setStatus("Selesai");
+            System.out.println(
+                    "Status berhasil diubah menjadi Selesai."
+            );
 
         } else {
 
-            transaksi.setStatus("Diambil");
+            t.setStatus("Diambil");
+
+            System.out.println(
+                    "Status berhasil diubah menjadi Diambil."
+            );
         }
-
-        loading("Mengubah status");
-
-        System.out.println(
-                "Status transaksi berhasil diubah menjadi: "
-                + transaksi.getStatus()
-        );
     }
+
 
     private void hapusData() {
+
         System.out.println(
-                "========== HAPUS DATA =========="
+                "\n========== HAPUS DATA =========="
         );
 
-        String id =
-                inputString(
-                        "Masukkan ID Transaksi: "
-                );
+        Transaksi t = pilihTransaksi();
 
-        Transaksi transaksi =
-                controller.cari(id);
+        if (t == null) {
+            return;
+        }
 
-        if (transaksi == null) {
+        if (t.getStatus().equalsIgnoreCase("Diambil")) {
 
             System.out.println(
-                    "Data tidak ditemukan."
+                    "Transaksi yang sudah Diambil "
+                    + "tidak dapat dihapus."
             );
 
             return;
         }
 
-        if (transaksi.getStatus()
-                .equalsIgnoreCase("Diambil")) {
-
-            System.out.println(
-                    "Transaksi sudah diambil dan tidak dapat dihapus."
-            );
-
-            return;
-        }
-        System.out.println(
-                "Data yang akan dihapus:"
+        String jawaban = inputKonfirmasi(
+                "Yakin ingin menghapus? (Y/T): "
         );
 
-        transaksi.tampilkanData();
-        System.out.println(
-                "Apakah yakin ingin menghapus?"
-        );
+        if (jawaban.equals("Y")) {
 
-        System.out.println("1. Ya");
-        System.out.println("2. Tidak");
-
-        int pilihan;
-
-        do {
-
-            pilihan =
-                    inputInt("Pilih: ");
-
-            if (pilihan != 1
-                    && pilihan != 2) {
+            if (controller.hapus(
+                    t.getIdTransaksi())) {
 
                 System.out.println(
-                        "Pilih 1 atau 2."
+                        "Data berhasil dihapus."
+                );
+
+            } else {
+
+                System.out.println(
+                        "Data gagal dihapus."
                 );
             }
-
-        } while (
-                pilihan != 1
-                && pilihan != 2
-        );
-
-        if (pilihan == 1) {
-
-            loading("Menghapus data");
-
-            controller.hapus(id);
-
-            System.out.println(
-                    "Data berhasil dihapus."
-            );
 
         } else {
 
@@ -479,213 +522,84 @@ public class Menu {
     }
 
     private void cariData() {
+
         System.out.println(
-                "========== CARI DATA =========="
+                "\n========== CARI DATA =========="
         );
 
-        String id =
-                inputString(
-                        "Masukkan ID Transaksi: "
-                );
+        Transaksi t = pilihTransaksi();
 
-        Transaksi transaksi =
-                controller.cari(id);
-
-        if (transaksi != null) {
-
-            System.out.println();
-            System.out.println(
-                    "Data ditemukan:"
-            );
-
-            transaksi.tampilkanData();
-
-        } else {
-
-            System.out.println(
-                    "Data dengan ID "
-                    + id
-                    + " tidak ditemukan."
-            );
+        if (t == null) {
+            return;
         }
+
+        System.out.println(
+                "\nData ditemukan:"
+        );
+
+        t.tampilkanData(true);
     }
 
     private void cetakStruk() {
+
         System.out.println(
-                "========== CETAK STRUK =========="
+                "\n========== CETAK STRUK =========="
         );
 
-        String id =
-                inputString(
-                        "Masukkan ID Transaksi: "
-                );
+        Transaksi t = pilihTransaksi();
 
-        Transaksi transaksi =
-                controller.cari(id);
+        if (t == null) {
+            return;
+        }
 
-        if (transaksi == null) {
+        if (!t.getStatus().equalsIgnoreCase("Diambil")) {
 
             System.out.println(
-                    "Transaksi tidak ditemukan."
+                    "Struk hanya dapat dicetak "
+                    + "setelah status Diambil."
             );
 
             return;
         }
-        if (!transaksi.getStatus()
-                .equalsIgnoreCase("Diambil")) {
 
-            System.out.println(
-                    "Struk belum dapat dicetak."
-            );
-
-            System.out.println(
-                    "Transaksi harus berstatus Diambil terlebih dahulu."
-            );
-
-            System.out.println(
-                    "Status saat ini: "
-                    + transaksi.getStatus()
-            );
-
-            return;
-        }
-        loading("Menyiapkan struk");
-
-        System.out.println();
-
-        System.out.println(
-                "========================================"
-        );
-
-        System.out.println(
-                "          STRUK CUCI SEPATU"
-        );
-
-        System.out.println(
-                "========================================"
-        );
-
-        System.out.println(
-                "ID Transaksi : "
-                + transaksi.getIdTransaksi()
-        );
-
-        System.out.println(
-                "Tanggal      : "
-                + transaksi.getTanggal()
-        );
-
-        System.out.println(
-                "Pelanggan    : "
-                + transaksi.getPelanggan().getNama()
-        );
-
-        System.out.println(
-                "No. Telepon  : "
-                + transaksi.getPelanggan().getNoTelepon()
-        );
-
-        System.out.println(
-                "Sepatu       : "
-                + transaksi.getSepatu().getMerek()
-        );
-
-        System.out.println(
-                "Warna        : "
-                + transaksi.getSepatu().getWarna()
-        );
-
-        System.out.println(
-                "Layanan      : "
-                + transaksi.getJenisLayanan()
-        );
-
-        System.out.println(
-                "Harga        : Rp"
-                + transaksi.getHarga()
-        );
-
-        System.out.println(
-                "Status       : "
-                + transaksi.getStatus()
-        );
-
-        System.out.println(
-                "========================================"
-        );
-
-        System.out.println(
-                "      Terima kasih telah menggunakan"
-        );
-
-        System.out.println(
-                "          jasa cuci sepatu kami!"
-        );
-
-        System.out.println(
-                "========================================"
-        );
+        t.cetak();
     }
 
-    private String inputString(String pesan) {
-
-        String hasil;
-
-        do {
-
-            System.out.print(pesan);
-
-            hasil =
-                    input.nextLine().trim();
-
-            if (hasil.isEmpty()) {
-
-                System.out.println(
-                        "Input tidak boleh kosong!"
-                );
-            }
-
-        } while (hasil.isEmpty());
-
-        return hasil;
-    }
     private String inputNama(String pesan) {
 
         while (true) {
 
+            System.out.print(pesan);
+
             String nama =
-                    inputString(pesan);
+                    input.nextLine().trim();
 
-            if (nama.length() < 3) {
-
-                System.out.println(
-                        "Nama terlalu pendek."
-                );
-
-            } else if (
-                    !nama.matches("[a-zA-Z ]+")
-            ) {
+            if (!nama.matches(
+                    "[\\p{L}]+( [\\p{L}]+)*")) {
 
                 System.out.println(
-                        "Nama hanya boleh berisi huruf dan spasi."
+                        "Nama hanya boleh berisi "
+                        + "huruf dan spasi antar kata."
                 );
 
-            } else if (
-                    !nama.matches(".*[aeiouAEIOU].*")
-            ) {
-
-                System.out.println(
-                        "Nama terlihat tidak valid atau mungkin typo."
-                );
-
-                System.out.println(
-                        "Silakan masukkan nama kembali."
-                );
-
-            } else {
-
-                return nama;
+                continue;
             }
+
+            int jumlahHuruf =
+                    nama.replace(" ", "").length();
+
+            if (jumlahHuruf < 3
+                    || jumlahHuruf > 20) {
+
+                System.out.println(
+                        "Nama terlalu pendek/panjang. "
+                        + "Minimal 3 huruf dan maksimal 20 huruf."
+                );
+
+                continue;
+            }
+
+            return nama;
         }
     }
 
@@ -693,107 +607,153 @@ public class Menu {
 
         while (true) {
 
+            System.out.print(pesan);
+
             String nomor =
-                    inputString(pesan);
+                    input.nextLine().trim();
 
-            if (!nomor.matches("\\d+")) {
-
-                System.out.println(
-                        "Nomor telepon hanya boleh berisi angka."
-                );
-
-            } else if (
-                    nomor.length() < 10
-                    || nomor.length() > 13
-            ) {
+            if (!nomor.matches("08\\d{8,11}")) {
 
                 System.out.println(
-                        "Nomor telepon harus 10-13 digit."
+                        "Nomor telepon harus diawali 08 "
+                        + "dan terdiri dari 10-13 digit."
                 );
 
-            } else {
-
-                return nomor;
+                continue;
             }
+
+            return nomor;
         }
     }
-    private String inputPanjang(
+
+
+    private String inputAlamat(String pesan) {
+
+        while (true) {
+
+            System.out.print(pesan);
+
+            String alamat =
+                    input.nextLine().trim();
+
+            if (alamat.length() < 5
+                    || alamat.length() > 100
+                    || !alamat.matches(".*[\\p{L}].*")) {
+
+                System.out.println(
+                        "Alamat harus 5-100 karakter "
+                        + "dan mengandung huruf."
+                );
+
+                continue;
+            }
+
+            return alamat;
+        }
+    }
+
+
+    private String inputTeks(
             String pesan,
-            int minimal,
-            int maksimal) {
+            String jenis) {
 
         while (true) {
 
-            String hasil =
-                    inputString(pesan);
+            System.out.print(pesan);
 
-            if (hasil.length() < minimal) {
+            String teks =
+                    input.nextLine().trim();
 
-                System.out.println(
-                        "Input minimal "
-                        + minimal
-                        + " karakter."
-                );
-
-            } else if (
-                    hasil.length() > maksimal
-            ) {
+            if (teks.length() < 2
+                    || teks.length() > 30
+                    || !teks.matches(".*[\\p{L}].*")) {
 
                 System.out.println(
-                        "Input maksimal "
-                        + maksimal
-                        + " karakter."
+                        jenis
+                        + " harus 2-30 karakter "
+                        + "dan mengandung huruf."
                 );
 
-            } else {
-
-                return hasil;
+                continue;
             }
+
+            return teks;
         }
     }
-    private int inputInt(String pesan) {
+
+
+    private int inputPilihan(
+            int minimum,
+            int maksimum,
+            String pesan) {
 
         while (true) {
+
+            System.out.print(pesan);
+
+            String nilai =
+                    input.nextLine().trim();
+
+            if (!nilai.matches("\\d+")) {
+
+                System.out.println(
+                        "Masukkan angka "
+                        + minimum
+                        + "-"
+                        + maksimum
+                        + "."
+                );
+
+                continue;
+            }
 
             try {
 
-                System.out.print(pesan);
+                int pilihan =
+                        Integer.parseInt(nilai);
 
-                int angka =
-                        Integer.parseInt(
-                                input.nextLine().trim()
-                        );
+                if (pilihan < minimum
+                        || pilihan > maksimum) {
 
-                return angka;
+                    System.out.println(
+                            "Pilihan tidak tersedia."
+                    );
+
+                    continue;
+                }
+
+                return pilihan;
 
             } catch (NumberFormatException e) {
 
                 System.out.println(
-                        "Input harus berupa angka!"
+                        "Angka terlalu besar."
                 );
             }
         }
     }
 
-    private void loading(String pesan) {
+    private String inputKonfirmasi(
+            String pesan) {
 
-        System.out.print(pesan);
+        while (true) {
 
-        for (int i = 0; i < 5; i++) {
+            System.out.print(pesan);
 
-            System.out.print(".");
+            String jawaban =
+                    input.nextLine()
+                            .trim()
+                            .toUpperCase();
 
-            try {
+            if (jawaban.equals("Y")
+                    || jawaban.equals("T")) {
 
-                Thread.sleep(200);
-
-            } catch (InterruptedException e) {
-
-                Thread.currentThread()
-                        .interrupt();
+                return jawaban;
             }
-        }
 
-        System.out.println(" selesai!");
+            System.out.println(
+                    "Masukkan Y atau T."
+            );
+        }
     }
 }

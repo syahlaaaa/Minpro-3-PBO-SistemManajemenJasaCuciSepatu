@@ -2,7 +2,11 @@ package Model;
 
 public class SepatuBoot extends Sepatu {
 
-    public SepatuBoot(String idSepatu, String merek, String warna) {
+    public SepatuBoot(
+            String idSepatu,
+            String merek,
+            String warna) {
+
         super(idSepatu, merek, warna);
     }
 

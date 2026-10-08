@@ -2,24 +2,28 @@ package Model;
 
 public class Pelanggan {
 
-    private String idPelanggan;
+    private final String idPelanggan;
     private String nama;
     private String noTelepon;
     private String alamat;
+    private boolean member;
 
-    public Pelanggan(String idPelanggan, String nama, String noTelepon, String alamat) {
+    public Pelanggan(
+            String idPelanggan,
+            String nama,
+            String noTelepon,
+            String alamat,
+            boolean member) {
+
         this.idPelanggan = idPelanggan;
         this.nama = nama;
         this.noTelepon = noTelepon;
         this.alamat = alamat;
+        this.member = member;
     }
 
     public String getIdPelanggan() {
         return idPelanggan;
-    }
-
-    public void setIdPelanggan(String idPelanggan) {
-        this.idPelanggan = idPelanggan;
     }
 
     public String getNama() {
@@ -44,5 +48,13 @@ public class Pelanggan {
 
     public void setAlamat(String alamat) {
         this.alamat = alamat;
+    }
+
+    public boolean isMember() {
+        return member;
+    }
+
+    public void setMember(boolean member) {
+        this.member = member;
     }
 }

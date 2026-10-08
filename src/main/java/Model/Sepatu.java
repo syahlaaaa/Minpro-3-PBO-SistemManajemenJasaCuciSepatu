@@ -1,8 +1,8 @@
 package Model;
 
-public class Sepatu {
+public abstract class Sepatu {
 
-    private String idSepatu;
+    private final String idSepatu;
     private String merek;
     private String warna;
 
@@ -14,10 +14,6 @@ public class Sepatu {
 
     public String getIdSepatu() {
         return idSepatu;
-    }
-
-    public void setIdSepatu(String idSepatu) {
-        this.idSepatu = idSepatu;
     }
 
     public String getMerek() {
@@ -35,8 +31,5 @@ public class Sepatu {
     public void setWarna(String warna) {
         this.warna = warna;
     }
-
-    public void tampilkanJenis() {
-        System.out.println("Jenis Sepatu : Umum");
-    }
+    public abstract void tampilkanJenis();
 }
