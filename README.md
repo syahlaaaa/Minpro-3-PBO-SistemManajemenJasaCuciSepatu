@@ -219,14 +219,23 @@ Digunakan untuk menyimpan data pelanggan seperti:
 - Alamat
 - Status Member
 Sepatu.java
+
 Merupakan abstract class yang menjadi superclass untuk objek sepatu.
+
 SepatuSneakers.java
+
 Merupakan subclass dari Sepatu yang digunakan untuk jenis sepatu Sneakers.
+
 SepatuBoot.java
+
 Merupakan subclass dari Sepatu yang digunakan untuk jenis sepatu Boots.
+
 Transaksi.java
+
 Digunakan untuk menyimpan data transaksi dan mengatur proses perhitungan promo, diskon, total harga, status transaksi, serta pencetakan struk.
+
 CetakStruk.java
+
 Merupakan interface yang digunakan untuk mendefinisikan kemampuan mencetak struk.
 
 ## 4.2 View
