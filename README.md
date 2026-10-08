@@ -111,17 +111,24 @@ Jenis sepatu diterapkan menggunakan konsep inheritance dan abstraction.
 
 ## 3.6 Pilihan Layanan
 Program menyediakan dua pilihan layanan:
+
 Layanan	Harga
+
 Fast Clean	Rp20.000
+
 Deep Clean	Rp35.000
 
 
 ## 3.7 Sistem Promo dan Diskon
 Program memiliki fitur promo yang diberikan secara acak ketika transaksi dibuat.
 Kemungkinan promo yang diperoleh:
+
 - Diskon 10%
+
 - Diskon 5%
+
 - Tidak mendapatkan promo
+
 Jika pengguna mendapatkan promo, program akan menampilkan informasi promo, jumlah potongan harga, dan total harga setelah diskon.
 Perhitungan diskon dilakukan secara otomatis oleh sistem.
 
