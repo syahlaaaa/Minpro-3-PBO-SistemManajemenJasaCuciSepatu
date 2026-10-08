@@ -101,11 +101,13 @@ Data yang dimasukkan meliputi:
 - Tanggal Transaksi
 - Status Transaksi
 ID Pelanggan, ID Sepatu, dan ID Transaksi dibuat secara otomatis oleh sistem.
+
 3.5 Pilihan Jenis Sepatu
 Program menyediakan dua jenis sepatu:
 - Sneakers
 - Boots
 Jenis sepatu diterapkan menggunakan konsep inheritance dan abstraction.
+
 3.6 Pilihan Layanan
 Program menyediakan dua pilihan layanan:
 Layanan	Harga
@@ -128,6 +130,7 @@ Menunggu-Diproses-Selesai-Diambil
 
 Pengguna juga dapat membatalkan transaksi selama transaksi belum berstatus final.
 Status Diambil dan Batal dianggap sebagai status final.
+
 3.9 Pencarian Data
 Program menyediakan fitur pencarian/pemilihan transaksi untuk melihat informasi transaksi tertentu.
 Informasi transaksi yang dapat ditampilkan meliputi:
@@ -146,6 +149,7 @@ Informasi transaksi yang dapat ditampilkan meliputi:
 Admin dapat menghapus transaksi yang dipilih.
 Namun transaksi yang sudah berstatus Diambil tidak dapat dihapus.
 Hal ini dibuat agar data transaksi yang sudah selesai tidak langsung hilang dari sistem.
+
 3.11 Cetak Struk
 Program menyediakan fitur cetak struk transaksi.
 Struk hanya dapat dicetak apabila status transaksi sudah:
@@ -221,6 +225,7 @@ Transaksi.java
 Digunakan untuk menyimpan data transaksi dan mengatur proses perhitungan promo, diskon, total harga, status transaksi, serta pencetakan struk.
 CetakStruk.java
 Merupakan interface yang digunakan untuk mendefinisikan kemampuan mencetak struk.
+
 5.2 View
 Package View berisi tampilan dan interaksi dengan pengguna.
 Class yang terdapat di dalamnya:
@@ -278,6 +283,7 @@ public void setNama(String nama) {
 }
 ```
 Penerapan encapsulation membantu menjaga data agar tidak dapat diubah secara sembarangan dari luar class.
+
 # 9. Penerapan Inheritance
 Inheritance diterapkan pada class Sepatu.
 Class Sepatu digunakan sebagai superclass, sedangkan:
@@ -306,6 +312,7 @@ public abstract void tampilkanJenis();
 ```
 Abstract method tersebut kemudian diimplementasikan oleh subclass.
 Dengan abstraction, Sepatu hanya menentukan bahwa setiap jenis sepatu harus memiliki method tampilkanJenis() tanpa menentukan implementasinya secara langsung.
+
 # 11. Penerapan Polymorphism
 Program menerapkan dua bentuk polymorphism, yaitu:
 1. Overriding
@@ -352,6 +359,7 @@ Jika dipanggil:
 tampilkanData();
 ```
 program menampilkan data transaksi secara singkat.
+
 # 12. Penerapan Interface
 Interface digunakan sebagai nilai tambah pada program.
 Interface yang digunakan adalah:
@@ -383,6 +391,7 @@ private final Sepatu sepatu;
 ```
 final juga digunakan pada class Admin, Kasir, dan Pelanggan.
 Penggunaan final membantu menjaga data tertentu agar tetap konsisten selama objek digunakan.
+
 # 14. Penerapan Keyword super
 Keyword super digunakan pada constructor subclass untuk memanggil constructor dari superclass.
 Contohnya pada SepatuSneakers:
@@ -472,18 +481,18 @@ Gambar menunjukkan menu yang dapat diakses oleh Admin. Admin memiliki hak akses 
 
 <img width="420" height="572" alt="image" src="https://github.com/user-attachments/assets/520c2da7-33c6-41ca-9c06-ea5c80311c9d" />
 
-2.  Tambah Data
+3.  Tambah Data
 Gambar menunjukkan proses penambahan data transaksi yang meliputi data pelanggan, sepatu, layanan, dan tanggal transaksi. ID pelanggan, ID sepatu, dan ID transaksi dibuat secara otomatis oleh sistem.
 
 <img width="348" height="757" alt="image" src="https://github.com/user-attachments/assets/a79ef174-14b2-4579-a9d6-79dd597a367c" />
 
-3.  Lihat Data
+4.  Lihat Data
 Gambar menunjukkan tampilan data transaksi yang telah tersimpan di dalam sistem. Data yang ditampilkan meliputi informasi pelanggan, sepatu, layanan, harga, promo, total harga, tanggal, dan status transaksi.
 
 <img width="380" height="785" alt="image" src="https://github.com/user-attachments/assets/7b37101d-99bd-4cc0-98dc-0b0d4f79f16d" />
 
 
-4. Ubah Status Transaksi
+5. Ubah Status Transaksi
 Gambar menunjukkan proses mengubah status transaksi sesuai dengan tahapan pengerjaan sepatu. Status transaksi dapat diubah dari Menunggu, Diproses, Selesai, hingga Diambil.
 
 <img width="462" height="303" alt="image" src="https://github.com/user-attachments/assets/a6048af7-6800-4c57-9751-b8bb56ff60c9" />
