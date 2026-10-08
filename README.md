@@ -177,7 +177,7 @@ Struk berisi:
 - Diskon
 - Total Bayar
 - Status
-- 
+
 ## 3.12 Validasi Input
 Program menerapkan validasi untuk mengurangi kesalahan input pengguna.
 Validasi yang diterapkan meliputi:
@@ -199,6 +199,7 @@ Input seperti:
 1111111
 
 tidak akan diterima sebagai alamat karena tidak mengandung huruf.
+
 Validasi Pilihan Menu
 Program juga memastikan pengguna hanya memasukkan pilihan yang tersedia.
 Contohnya jika menu hanya menyediakan pilihan 1-4, pengguna tidak dapat memasukkan pilihan 5.
